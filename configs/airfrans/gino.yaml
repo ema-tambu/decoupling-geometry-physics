@@ -1,0 +1,7 @@
+# GINO on AirfRANS (one network per variable, one mesh per step); coordinate_type ori or tbal.
+system: {num_epochs: 400, macro_batch_size: 1, learning_rate: 0.001, weight_decay: 1e-4, optimizer: adamw,
+  lr_scheduler: one_cycle, grad_clip: 1.0, grad_accum_steps: 1, seed: 0, num_plot_samples: 10}
+model: {architecture: gino, out_dim: 1, grid_resolution_x_gino: 64, grid_resolution_y_gino: 64, in_gno_radius_gino: 0.08,
+  out_gno_radius_gino: 0.08, fno_n_modes_gino: [16, 16], fno_hidden_channels_gino: 32, fno_n_layers_gino: 4}
+data: {dataset_name: airfrans, base_folder: data/airfrans/, dataset_version: full, target_channel: 0,
+  coordinate_type: tbal, shuffle: true}

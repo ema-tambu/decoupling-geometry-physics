@@ -1,0 +1,21 @@
+# Shift-modulated SIREN (INR) on AirfRANS; one network per variable: data.target_channel 0 (u), 1 (v), 2 (p).
+# coordinate_type: ori (original coordinates), tgeom (after T_geom), tbal (after T_bal o T_geom).
+# dataset_version: full (800 training simulations) or scarce (200); both are tested on the 200 full_test simulations.
+system: {num_epochs: 100, macro_batch_size: 1, learning_rate: 0.001, weight_decay: 1e-4, optimizer: lamb,
+  lr_scheduler: one_cycle, grad_accum_steps: 1, seed: 0, num_plot_samples: 10}
+model:
+  architecture: siren
+  out_dim: 1
+  N: 4096                       # points per chunk
+  in_features_siren: 2
+  shift_size_siren: 6           # global parameters: U_inf, alpha, 4 NACA parameters
+  num_hidden_layers_siren: 12
+  hidden_features_siren: [48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48]
+  omega_siren: 0.1
+  omega_0_siren: 0.1
+  activation_fn_siren: sin
+  mod_activation_fn_siren: identity
+  use_resnet_siren: true
+  dropout_rate_siren: 0.0
+data: {dataset_name: airfrans, base_folder: data/airfrans/, dataset_version: full, target_channel: 0,
+  coordinate_type: tbal, shuffle: true}

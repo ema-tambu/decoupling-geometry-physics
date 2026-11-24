@@ -1,0 +1,19 @@
+# Shift-modulated SIREN (INR) on VKI-LS59, Mach number (target_channel 0); coordinate_type ori, tgeom or tbal.
+system: {num_epochs: 1667, macro_batch_size: 1, learning_rate: 1e-4, weight_decay: 1e-5, optimizer: lamb,
+  lr_scheduler: plateau, grad_accum_steps: 1, seed: 0, num_plot_samples: 10}
+model:
+  architecture: siren
+  out_dim: 1
+  N: 4096
+  in_features_siren: 2
+  shift_size_siren: 10          # 7 POD coefficients of the SDF, inlet angle, outlet Mach number, local SDF
+  num_hidden_layers_siren: 12
+  hidden_features_siren: [48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48]
+  omega_siren: 0.1
+  omega_0_siren: 0.1
+  activation_fn_siren: sin
+  mod_activation_fn_siren: identity
+  use_resnet_siren: true
+  dropout_rate_siren: 0.0
+data: {dataset_name: vki_ls59, base_folder: data/vki_ls59/, dataset_version: full, target_channel: 0,
+  coordinate_type: tbal, shuffle: true}

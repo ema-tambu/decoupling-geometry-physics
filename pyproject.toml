@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "decoupling-geometry-physics"
+version = "1.0.0"
+description = "Information-preserving domain transformations for lightweight operator learning on varying geometries"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "pyyaml", "tqdm", "matplotlib"]
+
+[project.optional-dependencies]
+# domain transformation (RBF morphing in float64 with JAX; AirfRANS meshes are read with pyvista)
+morph = ["jax", "pyvista"]
+# VKI-LS59 from the Hugging Face hub through PLAID
+vki = ["datasets", "pyplaid"]
+# training and prediction (INR, GINO, Transolver++)
+train = ["torch", "tensorboard", "timm", "einops", "neuraloperator"]
+# MMGP baseline
+mmgp = ["scikit-learn"]
+all = ["jax", "pyvista", "datasets", "pyplaid", "torch", "tensorboard", "timm", "einops", "neuraloperator", "scikit-learn"]
+
+[tool.setuptools.packages.find]
+include = ["dgp*"]

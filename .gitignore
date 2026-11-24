@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.ipynb_checkpoints/
+
+# datasets, training runs and predictions
+/data/
+/runs/
+/mmgp_*/
+*.pkl
+*.npz
+*.npy
+*.pt
+*.pth
